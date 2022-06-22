@@ -3,6 +3,7 @@ using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,9 +18,9 @@ namespace DataAccess.Concrete.InMemory
             
             _cars = new List<Car>
             {
-                new Car{Id = 1, BrandId = 1,ColorId=11,DailyPrice=1500,ModelYear=2011},
-                new Car{Id = 2, BrandId = 3,ColorId=22,DailyPrice=1900,ModelYear=2012},
-                new Car{Id = 3, BrandId = 3,ColorId=33,DailyPrice=1200,ModelYear=2013}
+                new Car{Id = 1, BrandId = 1,ColorId=11,DailyPrice=1500,ModelYear=2011, Description="Fiat"},
+                new Car{Id = 2, BrandId = 3,ColorId=22,DailyPrice=1900,ModelYear=2012,Description="Skoda"},
+                new Car{Id = 3, BrandId = 3,ColorId=33,DailyPrice=1200,ModelYear=2013,Description="Honda"}
 
             };
         }
@@ -40,6 +41,16 @@ namespace DataAccess.Concrete.InMemory
             return _cars;
         }
 
+        public List<Car> GetAll(Expression<Func<Car, bool>> filter = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Car GetT(Expression<Func<Car, bool>> filter)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(Car car)
         {
             Car carToUpdate;
@@ -48,11 +59,8 @@ namespace DataAccess.Concrete.InMemory
             carToUpdate.ModelYear = car.ModelYear;
             carToUpdate.ColorId = car.ColorId;
             carToUpdate.DailyPrice = car.DailyPrice;
+            carToUpdate.Description = car.Description;
         }
 
-        List<Car> ICarDal.GetById(int id)
-        {
-            return _cars.Where(c=>c.BrandId==id).ToList();
-        }
     }
 }
